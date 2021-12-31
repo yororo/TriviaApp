@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>TriviaApp.Web</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
+    <link href="css/app.min.css" rel="stylesheet" />
     <link href="TriviaApp.Web.styles.css" rel="stylesheet" />
 </head>
 
@@ -20,6 +20,12 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        //Javascript to toggle the menu
+        document.getElementById('nav-toggle').onclick = function () {
+            document.getElementById("nav-content").classList.toggle("hidden");
+        }
+    </script>
 </body>
 
 </html>
