@@ -12,9 +12,22 @@ namespace TriviaApp.UI.Web.Pages.Question
         public bool Hide { get; set; }
 
         [Parameter]
+        public int TotalQuestions { get; set; }
+
+        [Parameter]
         public EventCallback<bool?> IsAnswerCorrectChanged { get; set; }
 
+        [Parameter]
+        public EventCallback<bool?> IsNextClickedChanged { get; set; }
+
         private string SelectedAnswer { get; set; } = string.Empty;
+        private bool ShowNextButton { get; set; } = false;
+
+        protected override void OnInitialized()
+        {
+            SelectedAnswer = string.Empty;
+            ShowNextButton = false;
+        }
 
         private async Task OnSubmitClick()
         {
@@ -27,6 +40,17 @@ namespace TriviaApp.UI.Web.Pages.Question
             }
 
             await IsAnswerCorrectChanged.InvokeAsync(false);
+            ShowNextButton = true;
+        }
+
+        private async Task OnNextClick()
+        {
+            await IsNextClickedChanged.InvokeAsync(true);
+
+            SelectedAnswer = string.Empty;
+            ShowNextButton = false;
+
+            StateHasChanged();
         }
 
         private void OnSelectionChange(ChangeEventArgs e)

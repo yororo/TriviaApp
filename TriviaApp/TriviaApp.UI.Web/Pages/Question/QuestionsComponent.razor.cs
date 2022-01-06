@@ -26,5 +26,23 @@ namespace TriviaApp.UI.Web.Pages.Question
                 Score += 1;
             }
         }
+
+        protected void IsNextClicked(bool? isCorrect)
+        {
+            if (Questions != null && CurrentQuestion != null)
+            {
+                if (CurrentNumber <= Questions.Count)
+                {
+                    //CurrentQuestion = Questions[currentQuestionIndex + 1];
+                    CurrentNumber += 1;
+                }
+                else
+                {
+                    // no more questions, show total score or summary page
+                }
+            }
+
+            StateHasChanged();
+        }
     }
 }

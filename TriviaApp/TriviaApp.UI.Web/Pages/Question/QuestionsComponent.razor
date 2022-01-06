@@ -1,12 +1,12 @@
 ﻿@if (Questions != null)
 {
-    var question = Questions.Find(x => x.Number == CurrentNumber);
+    CurrentQuestion = Questions.Find(x => x.Number == CurrentNumber);
 
     <div class="mb-4 fs-3">
         Score: @Score/@Questions.Count
     </div>
-    @if (question != null)
+    @if (CurrentQuestion != null)
     {
-        <QuestionComponent Question=question IsAnswerCorrectChanged=IsAnswerCorrect />
+        <QuestionComponent Question=@CurrentQuestion IsAnswerCorrectChanged=IsAnswerCorrect IsNextClickedChanged=IsNextClicked TotalQuestions=Questions.Count/>
     }
 }
