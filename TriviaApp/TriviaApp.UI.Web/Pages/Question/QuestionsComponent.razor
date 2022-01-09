@@ -2,8 +2,8 @@
 {
     CurrentQuestion = Questions.Find(x => x.Number == CurrentNumber);
 
-    <div class="mb-4 fs-3">
-        Score: @Score/@Questions.Count
+    <div class="mb-4 fs-3 text-center">
+        Score: @Score
     </div>
     @if (CurrentQuestion != null)
     {

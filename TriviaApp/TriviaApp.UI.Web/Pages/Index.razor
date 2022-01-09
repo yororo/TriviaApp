@@ -5,7 +5,7 @@
 
 <PageTitle>Trivia App | Home</PageTitle>
 
-<div>
+<div class="@(ShowQuestions ? "d-none" : "")">
     <h1>Let's play!</h1>
 
     Setup your questions here.
@@ -40,10 +40,10 @@
             </InputSelect>
         </div>
 
-        <button type="submit" class="btn btn-primary">Game!</button>
+        <button type="submit" class="btn btn-primary" @onclick=GameOnClick>Game!</button>
     </EditForm>
 </div>
 
-<div>
+<div class="@(ShowQuestions ? "" : "d-none")">
     <QuestionsComponent Questions=@Questions />
 </div>

@@ -7,6 +7,7 @@ namespace TriviaApp.UI.Web.Pages
     {
         public QuestionSetupViewModel QuestionSetup { get; set; } = new();
         public List<Model.TriviaQuestion.Question.Question> Questions { get; set; } = new();
+        public bool ShowQuestions { get; set; }
 
         protected override void OnInitialized()
         {
@@ -36,6 +37,11 @@ namespace TriviaApp.UI.Web.Pages
                     Answer = "Mischief",
                     Choices = new List<string> { "Pack", "Mischief", "Race", "Drift" }
                 });
+        }
+
+        private void GameOnClick()
+        {
+            ShowQuestions = true;
         }
     }
 }
