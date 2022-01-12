@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Web;
 using TriviaApp.Domain.Enum;
 using TriviaApp.Domain.Model;
 using TriviaApp.UI.Model.Interface;
@@ -90,8 +91,8 @@ namespace TriviaApp.UI.Service.Service
                     {
                         var questionViewModel = new QuestionMultipleChoice();
                         questionViewModel.Number = questionNnumber;
-                        questionViewModel.Answer = multipleChoiceQuestion.CorrectAnswer;
-                        questionViewModel.Text = multipleChoiceQuestion.Question;
+                        questionViewModel.Answer = HttpUtility.HtmlDecode(multipleChoiceQuestion.CorrectAnswer);
+                        questionViewModel.Text = HttpUtility.HtmlDecode(multipleChoiceQuestion.Question);
 
                         var choices = multipleChoiceQuestion.IncorrectAnswers?.ToList();
 
@@ -100,7 +101,7 @@ namespace TriviaApp.UI.Service.Service
                             choices?.Add(multipleChoiceQuestion.CorrectAnswer);
                         }                        
 
-                        questionViewModel.Choices = choices?.OrderBy(x => rng.Next()).ToList();
+                        questionViewModel.Choices = choices?.Select(x => HttpUtility.HtmlDecode(x)).OrderBy(x => rng.Next()).ToList();
 
                         result.Add(questionViewModel);
 
