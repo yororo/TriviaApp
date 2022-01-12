@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TriviaApp.Data.Service\TriviaApp.Data.Service.csproj" />
+    <ProjectReference Include="..\TriviaApp.Domain\TriviaApp.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@
 {
     public abstract class Question
     {
-        public string Text { get; set; } = string.Empty;
+        public string? Text { get; set; }
         public int Number { get; set; }
     }
 }

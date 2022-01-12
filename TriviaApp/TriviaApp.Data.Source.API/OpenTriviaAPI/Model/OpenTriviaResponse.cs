@@ -1,4 +1,4 @@
-﻿namespace TriviaApp.Data.Service.API.OpenTriviaAPI.Model
+﻿namespace TriviaApp.Data.Source.API.OpenTriviaAPI.Model
 {
     internal record OpenTriviaResponse
     {

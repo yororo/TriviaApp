@@ -2,7 +2,7 @@
 {
     public class QuestionMultipleChoice : Question
     {
-        public string Answer { get; set; } = string.Empty;
-        public List<string> Choices { get; set; } = new();
+        public string? Answer { get; set; }
+        public List<string>? Choices { get; set; }
     }
 }

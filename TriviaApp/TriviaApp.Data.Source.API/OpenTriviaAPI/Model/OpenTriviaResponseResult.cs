@@ -1,4 +1,4 @@
-﻿namespace TriviaApp.Data.Service.API.OpenTriviaAPI.Model
+﻿namespace TriviaApp.Data.Source.API.OpenTriviaAPI.Model
 {
     internal record OpenTriviaResponseResult
     {
@@ -6,7 +6,7 @@
         public string? Type { get; set; }
         public string? Difficulty { get; set; }
         public string? Question { get; set; }
-        public string? CorrectAnswer { get; set; }
-        public List<string>? IncorrectAnswers { get; set; }
+        public string? Correct_Answer { get; set; }
+        public List<string>? Incorrect_Answers { get; set; }
     }
 }

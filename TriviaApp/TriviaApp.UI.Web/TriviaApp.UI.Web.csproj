@@ -10,9 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
+    <PackageReference Include="RestSharp" Version="107.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TriviaApp.Domain\TriviaApp.Domain.csproj" />
     <ProjectReference Include="..\TriviaApp.UI.Model\TriviaApp.UI.Model.csproj" />
     <ProjectReference Include="..\TriviaApp.UI.Service\TriviaApp.UI.Service.csproj" />
   </ItemGroup>

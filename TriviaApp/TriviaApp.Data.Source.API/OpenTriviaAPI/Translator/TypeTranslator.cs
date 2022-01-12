@@ -1,6 +1,6 @@
 ﻿using TriviaApp.Domain.Enum;
 
-namespace TriviaApp.Data.Service.API.OpenTriviaAPI.Translator
+namespace TriviaApp.Data.Source.API.OpenTriviaAPI.Translator
 {
     internal static class TypeTranslator
     {
