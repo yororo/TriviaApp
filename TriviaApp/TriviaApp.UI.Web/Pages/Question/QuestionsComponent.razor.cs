@@ -6,9 +6,9 @@ namespace TriviaApp.UI.Web.Pages.Question
     public partial class QuestionsComponent
     {
         [Parameter]
-        public List<Model.TriviaQuestion.Question.Question>? Questions { get; set; }
+        public List<QuestionViewModel>? Questions { get; set; }
 
-        public Model.TriviaQuestion.Question.Question? CurrentQuestion { get; set; }
+        public QuestionViewModel? CurrentQuestion { get; set; }
 
         private int CurrentNumber { get; set; }
         private int Score { get; set; }

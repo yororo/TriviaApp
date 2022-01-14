@@ -23,13 +23,13 @@ namespace TriviaApp.UI.Service.Service
         }
 
         // TODO: this should return viewmodel
-        public async Task<List<Question>> GetQuestionsAsync(int number, string type, string difficulty, string genre)
+        public async Task<List<QuestionViewModel>> GetQuestionsAsync(int number, string type, string difficulty, string genre)
         {
             Logger.LogInformation($"[Start] {nameof(CoreServiceApi)}.{nameof(GetQuestionsAsync)}()");
 
             var apiResult = new List<TriviaQuestionBase>();
             
-            var result = new List<Question>();
+            var result = new List<QuestionViewModel>();
             
             var typeParameter = 
                 type.ToLower() switch
@@ -89,7 +89,7 @@ namespace TriviaApp.UI.Service.Service
 
                     if (multipleChoiceQuestion != null)
                     {
-                        var questionViewModel = new QuestionMultipleChoice();
+                        var questionViewModel = new QuestionMultipleChoiceViewModel();
                         questionViewModel.Number = questionNnumber;
                         questionViewModel.Answer = HttpUtility.HtmlDecode(multipleChoiceQuestion.CorrectAnswer);
                         questionViewModel.Text = HttpUtility.HtmlDecode(multipleChoiceQuestion.Question);

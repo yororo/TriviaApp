@@ -4,11 +4,11 @@ namespace TriviaApp.UI.Service.Helper
 {
     public static class QuestionHelper
     {
-        public static bool CheckAnswer(this Question question, string answer)
+        public static bool CheckAnswer(this QuestionViewModel question, string answer)
         {
             if (question != null)
             {
-                var questionMultipleChoice = question as QuestionMultipleChoice;
+                var questionMultipleChoice = question as QuestionMultipleChoiceViewModel;
 
                 if (questionMultipleChoice != null)
                 {

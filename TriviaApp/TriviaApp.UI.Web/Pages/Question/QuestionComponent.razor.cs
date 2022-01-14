@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using TriviaApp.UI.Model.TriviaQuestion.Question;
 using TriviaApp.UI.Service.Helper;
 
 namespace TriviaApp.UI.Web.Pages.Question
@@ -6,7 +7,7 @@ namespace TriviaApp.UI.Web.Pages.Question
     public partial class QuestionComponent
     {
         [Parameter]
-        public Model.TriviaQuestion.Question.Question? Question { get; set; }
+        public QuestionViewModel? Question { get; set; }
         
         [Parameter]
         public bool Hide { get; set; }
@@ -19,6 +20,8 @@ namespace TriviaApp.UI.Web.Pages.Question
 
         [Parameter]
         public EventCallback<bool?> IsNextClickedChanged { get; set; }
+
+        public bool? IsCorrect { get; set; }
 
         private string SelectedAnswer { get; set; } = string.Empty;
         private bool ShowNextButton { get; set; } = false;
@@ -35,7 +38,9 @@ namespace TriviaApp.UI.Web.Pages.Question
             {
                 if (!string.IsNullOrEmpty(SelectedAnswer))
                 {
-                    await IsAnswerCorrectChanged.InvokeAsync(Question.CheckAnswer(SelectedAnswer));
+                    var isCorrect = Question.CheckAnswer(SelectedAnswer);
+                    await IsAnswerCorrectChanged.InvokeAsync(isCorrect);
+                    IsCorrect = isCorrect;
                 }
             }
 

@@ -2,13 +2,13 @@
 @using TriviaApp.UI.Service.Utility
 
 <div class="@(Hide ? "d-none" : "") d-flex justify-content-center">
-    @if (Question is QuestionMultipleChoice)
+    @if (Question is QuestionMultipleChoiceViewModel)
     {
-        var questionMultipleChoice = Question as QuestionMultipleChoice;
+        var questionMultipleChoice = Question as QuestionMultipleChoiceViewModel;
 
         @if (questionMultipleChoice != null)
         {
-            <div class="card rounded-3" style="width: 40rem;">
+            <div class="card rounded-3 @(IsCorrect.HasValue ? IsCorrect.Value ? "bg-success" : "bg-danger" : "")" style="width: 40rem;">
                 <div class="card-body">
                     <h5 class="card-title fs-4">@Question.Text</h5>
                     <h6 class="card-subtitle mb-4 text-muted">@Question.Number out of @TotalQuestions</h6>

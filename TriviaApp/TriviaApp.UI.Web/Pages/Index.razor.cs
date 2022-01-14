@@ -16,7 +16,7 @@ namespace TriviaApp.UI.Web.Pages
         [Inject]
         public ILogger<Index> Logger { get; set; }
 
-        public List<Model.TriviaQuestion.Question.Question> Questions { get; set; } = new();
+        public List<Model.TriviaQuestion.Question.QuestionViewModel> Questions { get; set; } = new();
         public QuestionSetupViewModel QuestionSetup { get; set; } = new();
         public bool ShowQuestions { get; set; }
         
