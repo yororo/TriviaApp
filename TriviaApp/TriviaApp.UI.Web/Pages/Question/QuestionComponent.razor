@@ -8,20 +8,24 @@
 
         @if (questionMultipleChoice != null)
         {
-            <div class="card rounded-3 @(IsCorrect.HasValue ? IsCorrect.Value ? "bg-success" : "bg-danger" : "")" style="width: 40rem;">
+            <div class="card rounded-3" style="width: 45rem;">
                 <div class="card-body">
-                    <h5 class="card-title fs-4">@Question.Text</h5>
+                    <h5 class="card-title fs-3">@Question.Text</h5>
                     <h6 class="card-subtitle mb-4 text-muted">@Question.Number out of @TotalQuestions</h6>
-                    <p class="card-text fs-5">
+                    <p class="card-text">
                         <EditForm Model=Question>
-                            <InputRadioGroup Name="@questionMultipleChoice.Number.ToString()" @bind-Value=SelectedAnswer>
+                            <InputRadioGroup Name="@questionMultipleChoice.Number.ToString()" @bind-Value=SelectedAnswer class="btn-group" role="group">
                                 @foreach (var choice in questionMultipleChoice.Choices)
                                 {
                                     var letter = NumberToLetterUtility.ConvertToLetter(questionMultipleChoice.Choices.IndexOf(choice) + 1);
                                     var choiceLineText = $"{letter}. {choice}";
+                                    var isAnswer = questionMultipleChoice.Answer.Trim().ToLower().Equals(choice.Trim().ToLower());
 
                                     <div class="mb-2">
-                                        <InputRadio Name=@questionMultipleChoice.Number.ToString() Value=choice /> @choiceLineText
+                                        <InputRadio Name=@questionMultipleChoice.Number.ToString() Value=choice class="btn-check" id=@choice /> 
+                                        <label class="btn fs-4 @(isAnswer && ShowNextButton ? "btn-success text-light" : "btn-outline-info text-dark")" for="@choice">
+                                            @choiceLineText
+                                        </label>
                                         <br />
                                     </div>
                                 }
@@ -36,14 +40,14 @@
 
 <div class="d-flex justify-content-center">
     <div class="mt-4 @(ShowNextButton ? "" : "d-none")">
-        <button type="button" class="btn btn-primary btn-lg" @onclick=OnNextClick>
+        <button type="button" class="btn btn-outline-primary btn-lg rounded-pill" @onclick=OnNextClick>
             Next
         </button>
     </div>
 
     <div class="me-2 mt-4">
         <button type="button" 
-                class="btn btn-primary btn-lg @(ShowNextButton ? "d-none" : "") @(string.IsNullOrEmpty(SelectedAnswer) ? "disabled" : "")" 
+                class="btn btn-outline-primary btn-lg rounded-pill @(ShowNextButton ? "d-none" : "") @(string.IsNullOrEmpty(SelectedAnswer) ? "disabled" : "")" 
                 @onclick=OnSubmitClick>
             Submit
         </button>

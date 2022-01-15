@@ -41,18 +41,18 @@ namespace TriviaApp.UI.Service.Service
             var difficultyParameter =
                 difficulty.ToLower() switch
                 {
-                    "medium" => "medium",
-                    "hard" => "hard",
-                    _ => "easy"
+                    "medium" => QuestionDifficulty.Medium,
+                    "hard" => QuestionDifficulty.Hard,
+                    _ => QuestionDifficulty.Easy
                 };
 
             var genreParameter =
                 genre switch
                 {
-                    "animals" => 27,
-                    "movies" => 3,
-                    "books" => 10,
-                    _ => 9 // general knowledge
+                    "animals" => QuestionCategory.Animals,
+                    "movies" => QuestionCategory.Movie,
+                    "music" => QuestionCategory.Music,
+                    _ => QuestionCategory.General // general knowledge
                 };
 
             var requestUri = $"questiontrivia?number={number}&type={typeParameter}&difficulty={difficultyParameter}&genre={genreParameter}";

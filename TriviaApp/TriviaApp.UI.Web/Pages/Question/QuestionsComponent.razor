@@ -1,12 +1,22 @@
 ﻿@if (Questions != null)
 {
     CurrentQuestion = Questions.Find(x => x.Number == CurrentNumber);
-
-    <div class="mb-4 fs-3 text-center">
-        Score: @Score
-    </div>
-    @if (CurrentQuestion != null)
+    
+    @if (CurrentQuestion != null && !Finished)
     {
         <QuestionComponent Question=@CurrentQuestion IsAnswerCorrectChanged=IsAnswerCorrect IsNextClickedChanged=IsNextClicked TotalQuestions=Questions.Count/>
+    }
+    
+    @if (Finished)
+    {
+        <div class="mb-4 text-center">
+            <h1 class="fs-2">
+                Score
+                <br>
+                <span class="badge bg-warning text-dark mt-3" style="font-size:5rem">
+                    @Score / @Questions.Count()
+                </span>
+            </h1>
+        </div>
     }
 }

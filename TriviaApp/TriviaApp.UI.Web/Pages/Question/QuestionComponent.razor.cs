@@ -30,6 +30,7 @@ namespace TriviaApp.UI.Web.Pages.Question
         {
             SelectedAnswer = string.Empty;
             ShowNextButton = false;
+            IsCorrect = null;
         }
 
         private async Task OnSubmitClick()
@@ -54,6 +55,7 @@ namespace TriviaApp.UI.Web.Pages.Question
 
             SelectedAnswer = string.Empty;
             ShowNextButton = false;
+            IsCorrect = null;
 
             StateHasChanged();
         }

@@ -8,9 +8,13 @@ namespace TriviaApp.UI.Web.Pages.Question
         [Parameter]
         public List<QuestionViewModel>? Questions { get; set; }
 
+        [Parameter]
+        public int CurrentNumber { get; set; }
+
         public QuestionViewModel? CurrentQuestion { get; set; }
 
-        private int CurrentNumber { get; set; }
+        public bool Finished { get; set; }
+
         private int Score { get; set; }
 
         protected override void OnInitialized()
@@ -31,14 +35,13 @@ namespace TriviaApp.UI.Web.Pages.Question
         {
             if (Questions != null && CurrentQuestion != null)
             {
-                if (CurrentNumber <= Questions.Count)
+                if (CurrentNumber < Questions.Count)
                 {
-                    //CurrentQuestion = Questions[currentQuestionIndex + 1];
                     CurrentNumber += 1;
                 }
                 else
                 {
-                    // no more questions, show total score or summary page
+                    Finished = true;
                 }
             }
 
