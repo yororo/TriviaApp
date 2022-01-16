@@ -59,15 +59,5 @@ namespace TriviaApp.UI.Web.Pages.Question
 
             StateHasChanged();
         }
-
-        private void OnSelectionChange(ChangeEventArgs e)
-        {
-            var selectedAnswer = e.Value?.ToString();
-
-            if (selectedAnswer != null)
-            {
-                SelectedAnswer = selectedAnswer;
-            }
-        }
     }
 }

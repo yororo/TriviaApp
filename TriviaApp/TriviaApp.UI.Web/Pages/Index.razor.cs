@@ -21,6 +21,7 @@ namespace TriviaApp.UI.Web.Pages
         public bool ShowQuestions { get; set; }
         public bool ShowSpinner { get; set; }
         private int StartNumber { get; set; }
+        public bool Finished { get; set; }
 
         protected override void OnInitialized()
         {
@@ -31,21 +32,23 @@ namespace TriviaApp.UI.Web.Pages
         {
             StartNumber = 1;
             await LoadQuestions();
-            QuestionSetup = new();
         }
 
         private void BackOnClick()
         {
+            QuestionSetup = new();
             ShowQuestions = false;
             StartNumber = 1;
+            Finished = false;
             Questions.Clear();
         }
 
         private async Task ResetOnClick()
         {
             Questions.Clear();
-            StartNumber = 1;
             await LoadQuestions();
+            StartNumber = 1;
+            Finished = false;
         }
 
         private async Task LoadQuestions()

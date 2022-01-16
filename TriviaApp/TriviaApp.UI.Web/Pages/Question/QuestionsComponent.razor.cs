@@ -11,9 +11,10 @@ namespace TriviaApp.UI.Web.Pages.Question
         [Parameter]
         public int CurrentNumber { get; set; }
 
-        public QuestionViewModel? CurrentQuestion { get; set; }
-
+        [Parameter]
         public bool Finished { get; set; }
+
+        public QuestionViewModel? CurrentQuestion { get; set; }
 
         private int Score { get; set; }
 
