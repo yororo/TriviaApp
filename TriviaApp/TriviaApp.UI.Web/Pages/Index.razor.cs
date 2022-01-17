@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TriviaApp.Domain.Enum;
-using TriviaApp.Domain.Interface;
-using TriviaApp.Domain.Model;
 using TriviaApp.UI.Model.Interface;
 using TriviaApp.UI.Model.TriviaQuestion;
-using TriviaApp.UI.Model.TriviaQuestion.Question;
 
 namespace TriviaApp.UI.Web.Pages
 {
@@ -18,14 +15,17 @@ namespace TriviaApp.UI.Web.Pages
 
         public List<Model.TriviaQuestion.Question.QuestionViewModel> Questions { get; set; } = new();
         public QuestionSetupViewModel QuestionSetup { get; set; } = new();
+        public List<string> Categories { get; set; } = new();
         public bool ShowQuestions { get; set; }
         public bool ShowSpinner { get; set; }
         private int StartNumber { get; set; }
         public bool Finished { get; set; }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            Logger.LogInformation($"[Start] {nameof(Index)}.{nameof(OnInitialized)}()");
+            Logger.LogInformation($"[Start] {nameof(Index)}.{nameof(this.OnInitializedAsync)}()");
+            Categories = await CoreService.GetCategories();
+            QuestionSetupSetDefaults();
         }
 
         private async Task GameOnClick()
@@ -36,7 +36,7 @@ namespace TriviaApp.UI.Web.Pages
 
         private void BackOnClick()
         {
-            QuestionSetup = new();
+            QuestionSetupSetDefaults();
             ShowQuestions = false;
             StartNumber = 1;
             Finished = false;
@@ -58,7 +58,7 @@ namespace TriviaApp.UI.Web.Pages
                 ShowQuestions = true;
                 ShowSpinner = true;
 
-                var triviaQuestions = await CoreService.GetQuestionsAsync(QuestionSetup.NumberOfQuestions, Enum.GetName(QuestionType.MultipleChoice), QuestionSetup.Difficulty, QuestionSetup.Category);
+                var triviaQuestions = await CoreService.GetQuestionsAsync(QuestionSetup.NumberOfQuestions, Enum.GetName(QuestionType.MultipleChoice) ?? string.Empty, QuestionSetup.Difficulty, QuestionSetup.Category);
 
                 ShowSpinner = false;
 
@@ -73,6 +73,13 @@ namespace TriviaApp.UI.Web.Pages
 
                 ShowQuestions = false;
             }
+        }
+
+        private void QuestionSetupSetDefaults()
+        {
+            QuestionSetup.Difficulty = Enum.GetName(QuestionDifficulty.Any)?.ToLower() ?? string.Empty;
+            QuestionSetup.Category = Categories.FirstOrDefault()?.ToLower() ?? string.Empty;
+            QuestionSetup.NumberOfQuestions = 10;
         }
 
         private void TestData()

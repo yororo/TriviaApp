@@ -40,5 +40,22 @@ namespace TriviaApp.Data.Service
 
             return result;
         }
+
+        public List<string> GetCategories()
+        {
+            var result = new List<string>();
+
+            foreach (var category in Enum.GetNames(typeof(QuestionCategory)))
+            {
+                //var categoryName = category switch
+                //{
+                //    typeof(QuestionCategory).GetProperty(nameof(QuestionCategory.Animals)).Name => "Animals"
+                //};
+                result.Add(category);
+            }
+
+            return result;
+
+        }
     }
 }

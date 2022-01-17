@@ -25,12 +25,15 @@ namespace TriviaApp.UI.Web.Pages.Question
 
         private string SelectedAnswer { get; set; } = string.Empty;
         private bool ShowNextButton { get; set; } = false;
+        private string AnimationCss = string.Empty;
+        private const string ANIMATION_CSS_CLASS = "animate__animated animate__rotateInDownRight";
 
         protected override void OnInitialized()
         {
             SelectedAnswer = string.Empty;
             ShowNextButton = false;
             IsCorrect = null;
+            AnimationCss = ANIMATION_CSS_CLASS;
         }
 
         private async Task OnSubmitClick()
@@ -42,6 +45,7 @@ namespace TriviaApp.UI.Web.Pages.Question
                     var isCorrect = Question.CheckAnswer(SelectedAnswer);
                     await IsAnswerCorrectChanged.InvokeAsync(isCorrect);
                     IsCorrect = isCorrect;
+                    AnimationCss = string.Empty;
                 }
             }
 
@@ -52,7 +56,7 @@ namespace TriviaApp.UI.Web.Pages.Question
         private async Task OnNextClick()
         {
             await IsNextClickedChanged.InvokeAsync(true);
-
+            AnimationCss = ANIMATION_CSS_CLASS;
             SelectedAnswer = string.Empty;
             ShowNextButton = false;
             IsCorrect = null;

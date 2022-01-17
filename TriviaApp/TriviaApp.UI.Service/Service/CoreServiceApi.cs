@@ -22,8 +22,7 @@ namespace TriviaApp.UI.Service.Service
             HttpClient = httpClient;
         }
 
-        // TODO: this should return viewmodel
-        public async Task<List<QuestionViewModel>> GetQuestionsAsync(int number, string type, string difficulty, string genre)
+        public async Task<List<QuestionViewModel>> GetQuestionsAsync(int number, string type, string difficulty, string category)
         {
             Logger.LogInformation($"[Start] {nameof(CoreServiceApi)}.{nameof(GetQuestionsAsync)}()");
 
@@ -41,21 +40,23 @@ namespace TriviaApp.UI.Service.Service
             var difficultyParameter =
                 difficulty.ToLower() switch
                 {
+                    "easy" => QuestionDifficulty.Easy,
                     "medium" => QuestionDifficulty.Medium,
                     "hard" => QuestionDifficulty.Hard,
-                    _ => QuestionDifficulty.Easy
+                    _ => QuestionDifficulty.Any
                 };
 
-            var genreParameter =
-                genre switch
+            // TODO: make this dynamic
+            var categoryParameter =
+                category switch
                 {
                     "animals" => QuestionCategory.Animals,
                     "movies" => QuestionCategory.Movie,
                     "music" => QuestionCategory.Music,
-                    _ => QuestionCategory.General // general knowledge
+                    _ => QuestionCategory.Any
                 };
 
-            var requestUri = $"questiontrivia?number={number}&type={typeParameter}&difficulty={difficultyParameter}&genre={genreParameter}";
+            var requestUri = $"api/questiontrivia/getquestions?number={number}&type={typeParameter}&difficulty={difficultyParameter}&category={categoryParameter}";
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, requestUri);
 
@@ -108,6 +109,40 @@ namespace TriviaApp.UI.Service.Service
                         questionNnumber++;
                     }
                 }
+            }
+
+            return result;
+        }
+
+        public async Task<List<string>> GetCategories()
+        {
+            Logger.LogInformation($"[Start] {nameof(CoreServiceApi)}.{nameof(GetCategories)}()");
+
+            var result = new List<string>();
+
+            var requestUri = $"api/Category/getcategories";
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, requestUri);
+
+            try
+            {
+                var response = await HttpClient.SendAsync(httpRequest);
+
+                if (response != null && response.Content != null && response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    // TODO: make this dynamic to accomodate other question types or revisit the model design
+                    var categories = JsonConvert.DeserializeObject<List<string>>(content);
+
+                    if (categories != null)
+                    {
+                        result.AddRange(categories);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
             }
 
             return result;

@@ -8,7 +8,7 @@ using TriviaApp.Domain.Model;
 namespace TriviaApp.Core.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class QuestionTriviaController : Controller
     {
         private ILogger<QuestionTriviaController> Logger { get; }
@@ -20,15 +20,15 @@ namespace TriviaApp.Core.API.Controllers
             DataService = dataService;
         }
 
-        [HttpGet]
+        [HttpGet("getquestions")]
         // GET: QuestionTriviaController/GetQuestions
-        public async Task<ActionResult> GetQuestions(int number, QuestionType type, QuestionDifficulty difficulty, QuestionCategory genre)
+        public async Task<ActionResult> GetQuestions(int number, QuestionType type, QuestionDifficulty difficulty, QuestionCategory category)
         {
             try
             {
-                Logger.LogInformation($"[Start] {nameof(QuestionTriviaController)}.{nameof(GetQuestions)}()");
+                Logger.LogInformation($"[Start] {nameof(QuestionTriviaController)}.{nameof(this.GetQuestions)}()");
 
-                var result = await DataService.GetQuestionsAsync(number, type, difficulty, genre);
+                var result = await DataService.GetQuestionsAsync(number, type, difficulty, category);
                 var serializedResult = JsonConvert.SerializeObject(result);
                 return Ok(serializedResult);
             }

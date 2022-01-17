@@ -7,5 +7,17 @@
         Animals,
         Movie,
         Music,
+        History,
+        MusicalAndTheatre,
+        Geography,
+        ScienceAndNature,
+        Comics,
+        Vehicles,
+        Mythology,
+        Computers,
+        Television,
+        Books,
+        Sports,
+        Celebrities,
     }
 }

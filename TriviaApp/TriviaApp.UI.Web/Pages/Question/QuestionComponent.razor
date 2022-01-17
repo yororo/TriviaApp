@@ -8,7 +8,7 @@
 
         @if (questionMultipleChoice != null)
         {
-            <div class="card rounded-3" style="width: 45rem;">
+            <div class="card rounded-3 @AnimationCss" style="width: 45rem;">
                 <div class="card-body">
                     <h5 class="card-title fs-3">@Question.Text</h5>
                     <h6 class="card-subtitle mb-4 text-muted">@Question.Number out of @TotalQuestions</h6>
@@ -20,12 +20,36 @@
                                     var letter = NumberToLetterUtility.ConvertToLetter(questionMultipleChoice.Choices.IndexOf(choice) + 1);
                                     var choiceLineText = $"{letter}. {choice}";
                                     var isAnswer = questionMultipleChoice.Answer.Trim().ToLower().Equals(choice.Trim().ToLower());
+                                    var isSelected = SelectedAnswer == choice;
+                                    var cssClass = "btn-outline-info text-dark";
 
-                                    <div class="mb-2">
+                                    @if (ShowNextButton)
+                                    {
+                                        @if (isAnswer)
+                                        {
+                                            cssClass = "btn-success text-light";
+
+                                            @if (isSelected)
+                                            {
+                                                cssClass += " animate__animated animate__tada";
+                                            }
+                                        }
+                                        else if (isSelected)
+                                        {
+                                            cssClass = "btn-danger text-light animate__animated animate__shakeX";
+                                        }
+                                    }
+
+                                    <div class="mb-2 d-flex align-items-center">
                                         <InputRadio Name=@questionMultipleChoice.Number.ToString() Value=choice class="btn-check" id=@choice /> 
-                                        <label class="btn fs-4 @(isAnswer && ShowNextButton ? "btn-success text-light" : "btn-outline-info text-dark")" for="@choice">
+                                        <label class="btn fs-4 align-baseline @cssClass" for="@choice">
                                             @choiceLineText
                                         </label>
+
+                                        @if (!isAnswer && ShowNextButton && isSelected)
+                                        {
+                                            <span class="oi oi-circle-x text-danger ms-2 fs-4"></span>
+                                        }
                                         <br />
                                     </div>
                                 }
